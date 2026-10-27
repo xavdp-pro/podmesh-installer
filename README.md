@@ -1,6 +1,8 @@
 # PodMesh Bare-Metal Appliance Installer (`podmesh-installer`) — v2.3.0
 
-Autonomous Bare-Metal **Debian 13 ("Trixie") Appliance Installer** for **PodMesh / SHAPER OS**, featuring a native **Flutter Linux GUI wizard**, a **Python Unix-Socket Installer Daemon**, **MeshFS P2P 4 MiB CAS Pool Orchestrators**, and a deterministic **QEMU/KVM + SPICE + QMP automation testbench**.
+[**🤖 AI-First Headless Install & Config**](AI_INSTALL_AND_CONFIG.md) · [Intent](INTENT.md) · [Law](LAW.md) · [Lineage](LINEAGE.md) · [Agents](AGENTS.md)
+
+Autonomous Bare-Metal **Debian 13 ("Trixie") Appliance Installer** for **PodMesh / SHAPER OS**, featuring a **100% headless-capable Python Unix-Socket Installer Daemon (`/tmp/podmesh-installer.sock` JSON IPC)** for autonomous AI agents (see **[`AI_INSTALL_AND_CONFIG.md`](AI_INSTALL_AND_CONFIG.md)**), **MeshFS P2P 4 MiB CAS Pool Orchestrators**, a deterministic **QEMU/KVM + SPICE + QMP automation testbench**, and an optional Flutter Linux GUI wizard.
 
 ---
 

@@ -1,5 +1,9 @@
 # Agents: Working in `podmesh-installer`
 
+> **🤖 AI-First Installation & Configuration Mandate**:
+> Bare-metal and VM appliance provisioning via `podmesh-installer` is 100% AI-First and headless-capable over the Unix Domain Socket JSON IPC (`/tmp/podmesh-installer.sock`), without requiring the graphical Flutter UI.
+> 👉 **Autonomous AI Agents: Read [`AI_INSTALL_AND_CONFIG.md`](AI_INSTALL_AND_CONFIG.md) first for deterministic headless disk scanning, GPT/EFI/Btrfs RAID partitioning, and installation protocols.**
+
 `podmesh-installer` follows the SHAPER PHOENIX public/private repository split for human–AI tandems.
 
 Dialogue with the operator may be in French; **all canonical documentation, commit messages, and new code comments in this repository MUST be written in English (`en-US`)**.
