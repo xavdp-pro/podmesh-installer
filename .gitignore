@@ -1,0 +1,19 @@
+# Virtual Disk & ISO Artifacts
+*.qcow2
+*.iso
+*.raw
+*.img
+*.sock
+
+# Flutter / Dart Build Artifacts
+build/
+.dart_tool/
+**/build/
+**/.dart_tool/
+**/.idea/
+*.iml
+
+# Python Artifacts
+__pycache__/
+*.py[cod]
+.venv/
