@@ -78,6 +78,7 @@ set -euo pipefail
 if [ "${1:-}" = "configure" ]; then
     if command -v systemctl >/dev/null 2>&1 && [ -d /run/systemd/system ]; then
         systemctl daemon-reload 2>/dev/null || true
+        systemctl enable --now podmesh-installerd.service 2>/dev/null || true
     fi
 fi
 exit 0
