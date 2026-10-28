@@ -1,8 +1,8 @@
-# PodMesh Bare-Metal Appliance Installer (`podmesh-installer`) — v2.3.0
+# PodMesh Bare-Metal Appliance Installer (`podmesh-installer`) — v2.4.0
 
 [**🤖 AI-First Headless Install & Config**](AI_INSTALL_AND_CONFIG.md) · [Intent](INTENT.md) · [Law](LAW.md) · [Lineage](LINEAGE.md) · [Agents](AGENTS.md)
 
-Autonomous Bare-Metal **Debian 13 ("Trixie") Appliance Installer** for **PodMesh / SHAPER OS**, featuring a **100% headless-capable Python Unix-Socket Installer Daemon (`/tmp/podmesh-installer.sock` JSON IPC)** for autonomous AI agents (see **[`AI_INSTALL_AND_CONFIG.md`](AI_INSTALL_AND_CONFIG.md)**), **MeshFS P2P 4 MiB CAS Pool Orchestrators**, a deterministic **QEMU/KVM + SPICE + QMP automation testbench**, and an optional Flutter Linux GUI wizard.
+Autonomous Bare-Metal & Cross-Platform **Debian 13 ("Trixie") Appliance Installer** for **PodMesh / SHAPER OS**. Transitioning from the experimental v2.3.0 demonstrator into **v2.4.0 universal multi-storage architecture** (Proxmox VE + TrueNAS + Synology + Windows + Podman), featuring a **100% headless-capable Python Unix-Socket Installer Daemon (`/tmp/podmesh-installer.sock` JSON IPC)** for autonomous AI agents (see **[`AI_INSTALL_AND_CONFIG.md`](AI_INSTALL_AND_CONFIG.md)**), **MeshFS FastCDC / BLAKE3 & Atomic Chunk Pools**, **WireGuard Dual-Hub sans SPOF network provisioning**, a deterministic **QEMU/KVM + SPICE + QMP automation testbench**, and an optional Flutter Linux GUI wizard.
 
 ---
 
@@ -11,10 +11,10 @@ Autonomous Bare-Metal **Debian 13 ("Trixie") Appliance Installer** for **PodMesh
 ```text
 podmesh-installer/
 ├── backend/
-│   ├── podmesh_installerd.py        # AF_UNIX JSON installer daemon (v2.3.0)
-│   ├── meshfs_p2p_engine.py         # Peer-to-peer 4 MiB SHA-256 CAS chunk engine
-│   └── meshfs_pool_orchestrator.py  # 3-node replicated MeshFS pool bootstrapper
-├── podmesh_installer_ui/            # Native Flutter Linux Desktop GUI (v2.3.0+1)
+│   ├── podmesh_installerd.py        # AF_UNIX JSON installer daemon (v2.4.0)
+│   ├── meshfs_p2p_engine.py         # WireGuard Dual-Hub FastCDC / BLAKE3 chunk engine
+│   └── meshfs_pool_orchestrator.py  # Replicated multi-platform MeshFS pool bootstrapper
+├── podmesh_installer_ui/            # Native Flutter Linux Desktop GUI (v2.4.0+1)
 │   ├── lib/main.dart                # 4-step dark-mode appliance installation wizard
 │   ├── linux/                       # GTK/C++ Linux runner for Debian 13 Live ISO
 │   └── pubspec.yaml

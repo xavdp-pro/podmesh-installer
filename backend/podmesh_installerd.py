@@ -18,7 +18,7 @@ import subprocess
 import threading
 import time
 
-VERSION = "2.3.0"
+VERSION = "2.4.0"
 SOCKET_PATH = "/tmp/podmesh-installer.sock"
 
 class PodmeshInstallerService:

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# PodMesh Bare-Metal Installer Daemon v2.3.0 — Debian 13 (Trixie) Package Builder
+# PodMesh Bare-Metal Installer Daemon v2.4.0 — Debian 13 (Trixie) Package Builder
 # Hardened under Claude Fable 5.1 & GPT-6 Astra Counter-Reviews:
 #  - Enforces 0755 on ./ and OS directories
 #  - Debian 13 usrmerge systemd unit (/usr/lib/systemd/system/podmesh-installerd.service)
@@ -11,7 +11,7 @@ set -euo pipefail
 umask 0022
 
 PKG_NAME="podmesh-installer"
-PKG_VERSION="2.3.0"
+PKG_VERSION="2.4.0"
 PKG_ARCH="all"
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 BUILD_DIR="$(mktemp -d /tmp/build-${PKG_NAME}.XXXXXX)"
@@ -34,7 +34,7 @@ install -m 0755 "${ROOT_DIR}/backend/meshfs_pool_orchestrator.py" "${BUILD_DIR}/
 
 cat << 'EOF' > "${BUILD_DIR}/usr/lib/systemd/system/podmesh-installerd.service"
 [Unit]
-Description=PodMesh Bare-Metal Appliance Installer Daemon (AI-First Unix Socket IPC v2.3.0)
+Description=PodMesh Bare-Metal Appliance Installer Daemon (AI-First Unix Socket IPC v2.4.0)
 After=local-fs.target
 
 [Service]
@@ -64,7 +64,7 @@ Depends: python3, util-linux, btrfs-progs, systemd
 Recommends: wireguard-tools, dosfstools, grub-efi-amd64-bin
 Maintainer: Xavier DP <xavier@xavdp.pro>
 Homepage: https://podmesh.xavdp.pro
-Description: PodMesh Bare-Metal Appliance Installer Daemon (v2.3.0)
+Description: PodMesh Bare-Metal Appliance Installer Daemon (v2.4.0)
  Autonomous headless-capable Debian 13 (Trixie) bare-metal installer daemon
  controlled via AF_UNIX JSON IPC (/tmp/podmesh-installer.sock). Provisions
  redundant GPT/EFI boot partitions, Btrfs RAID pools (@root, @var_shaper,
