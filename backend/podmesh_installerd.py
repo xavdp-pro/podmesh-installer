@@ -18,8 +18,27 @@ import subprocess
 import threading
 import time
 
-VERSION = "2.4.0"
-SOCKET_PATH = "/tmp/podmesh-installer.sock"
+VERSION = "2.4.1"
+
+
+def _resolve_socket_path():
+    env_sock = os.environ.get("PODMESH_INSTALLER_SOCK")
+    if env_sock:
+        return env_sock
+    for candidate_dir in ("/run/shaper", "/run"):
+        try:
+            os.makedirs(candidate_dir, mode=0o755, exist_ok=True)
+            if os.access(candidate_dir, os.W_OK):
+                return os.path.join(
+                    candidate_dir,
+                    "installer.sock" if candidate_dir.endswith("shaper") else "podmesh-installer.sock",
+                )
+        except OSError:
+            continue
+    return "/tmp/podmesh-installer.sock"
+
+
+SOCKET_PATH = _resolve_socket_path()
 
 class PodmeshInstallerService:
     def __init__(self):
@@ -86,9 +105,10 @@ class PodmeshInstallerService:
             "boot_size_mb": 2048,
             "subvolumes": [
                 {"name": "@root", "mount": "/", "compression": "zstd:3"},
-                {"name": "@var_shaper", "mount": "/var/run/shaper", "compression": "zstd:1"},
-                {"name": "@meshfs_cas", "mount": "/var/lib/meshfs/cas", "compression": "zstd:3"},
-                {"name": "@pmbs_backups", "mount": "/var/lib/pmbs/snapshots", "compression": "zstd:6"}
+                {"name": "@var_shaper", "mount": "/var/lib/shaper", "compression": "zstd:1"},
+                {"name": "@mariadb_hot", "mount": "/var/lib/mysql", "compression": "none", "options": "nodatacow"},
+                {"name": "@meshfs_cas", "mount": "/var/lib/meshfs", "compression": "zstd:3"},
+                {"name": "@pmbs_backups", "mount": "/var/lib/pmbs", "compression": "zstd:6"}
             ]
         }
         return plan

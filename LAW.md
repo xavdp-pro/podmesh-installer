@@ -1,6 +1,6 @@
 # PodMesh Bare-Metal Appliance Installer (`podmesh-installer`) — Invariant Law
 
-Status: Binding Architectural Invariants, v2.3.0 (2026-10-27).
+Status: Binding Architectural Invariants, v2.4.1 (2026-10-27).
 Scope: All backend daemon pipelines, storage partitioning plans, Flutter UI wizards, and QEMU/SPICE harnesses in `podmesh-installer`.
 
 ## Core Invariants
@@ -20,7 +20,7 @@ Every PodMesh appliance pool MUST enforce the canonical Btrfs subvolume topology
 | --- | --- | --- | --- |
 | `@root` | `/` | `zstd:3` | Immutable/rollback-capable Debian 13 (Trixie) root filesystem |
 | `@var_shaper` | `/var/run/shaper` | `zstd:1` | Low-latency FUnit IPC state and runtime metadata |
-| `@meshfs_cas` | `/var/lib/meshfs/cas` | `zstd:3` | Content-Addressable Storage (4 MiB SHA-256 chunks) |
+| `@meshfs_cas` | `/var/lib/meshfs/cas` | `zstd:3` | Content-Addressable Storage (4 MiB BLAKE3 chunks) |
 | `@pmbs_backups` | `/var/lib/pmbs/snapshots` | `zstd:6` | High-density deduplicated PMBS backup manifests and chunks |
 
 ### LAW-4: SPICE/QMP Deterministic Automation & Zero Image Bloat in Git

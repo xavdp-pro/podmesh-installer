@@ -1,8 +1,8 @@
-# PodMesh Bare-Metal Appliance Installer (`podmesh-installer`) — v2.4.0
+# PodMesh Bare-Metal Appliance Installer (`podmesh-installer`) — v2.4.1
 
 [**🤖 AI-First Headless Install & Config**](AI_INSTALL_AND_CONFIG.md) · [Intent](INTENT.md) · [Law](LAW.md) · [Lineage](LINEAGE.md) · [Agents](AGENTS.md)
 
-Autonomous Bare-Metal & Cross-Platform **Debian 13 ("Trixie") Appliance Installer** for **PodMesh / SHAPER OS**. Transitioning from the experimental v2.3.0 demonstrator into **v2.4.0 universal multi-storage architecture** (Proxmox VE + TrueNAS + Synology + Windows + Podman), featuring a **100% headless-capable Python Unix-Socket Installer Daemon (`/tmp/podmesh-installer.sock` JSON IPC)** for autonomous AI agents (see **[`AI_INSTALL_AND_CONFIG.md`](AI_INSTALL_AND_CONFIG.md)**), **MeshFS FastCDC / BLAKE3 & Atomic Chunk Pools**, **WireGuard Dual-Hub sans SPOF network provisioning**, a deterministic **QEMU/KVM + SPICE + QMP automation testbench**, and an optional Flutter Linux GUI wizard.
+Autonomous Bare-Metal & Cross-Platform **Debian 13 ("Trixie") Appliance Installer** for **PodMesh / SHAPER OS**. Transitioning from the experimental v2.4.1 demonstrator into **v2.4.0 universal multi-storage architecture** (Proxmox VE + TrueNAS + Synology + Windows + Podman), featuring a **100% headless-capable Python Unix-Socket Installer Daemon (`/tmp/podmesh-installer.sock` JSON IPC)** for autonomous AI agents (see **[`AI_INSTALL_AND_CONFIG.md`](AI_INSTALL_AND_CONFIG.md)**), **MeshFS FastCDC / BLAKE3 & Atomic Chunk Pools**, **WireGuard Dual-Hub sans SPOF network provisioning**, a deterministic **QEMU/KVM + SPICE + QMP automation testbench**, and an optional Flutter Linux GUI wizard.
 
 ---
 
@@ -11,7 +11,7 @@ Autonomous Bare-Metal & Cross-Platform **Debian 13 ("Trixie") Appliance Installe
 ```text
 podmesh-installer/
 ├── backend/
-│   ├── podmesh_installerd.py        # AF_UNIX JSON installer daemon (v2.4.0)
+│   ├── podmesh_installerd.py        # AF_UNIX JSON installer daemon (v2.4.1)
 │   ├── meshfs_p2p_engine.py         # WireGuard Dual-Hub FastCDC / BLAKE3 chunk engine
 │   └── meshfs_pool_orchestrator.py  # Replicated multi-platform MeshFS pool bootstrapper
 ├── podmesh_installer_ui/            # Native Flutter Linux Desktop GUI (v2.4.0+1)
@@ -33,7 +33,7 @@ When `podmesh_installerd.py` executes `plan_partitioning(disks, raid_profile)`, 
 3. **Partition 3 — Btrfs MeshFS Appliance Pool**: Remainder of disks, containing four canonical subvolumes:
    - `@root` mounted at `/` (`zstd:3`) — Debian 13 (Linux 6.12) root filesystem.
    - `@var_shaper` mounted at `/var/run/shaper` (`zstd:1`) — SHAPER FUnit Unix Domain Sockets and runtime state.
-   - `@meshfs_cas` mounted at `/var/lib/meshfs/cas` (`zstd:3`) — 4 MiB SHA-256 Content-Addressable Storage pool.
+   - `@meshfs_cas` mounted at `/var/lib/meshfs/cas` (`zstd:3`) — 4 MiB BLAKE3 Content-Addressable Storage pool.
    - `@pmbs_backups` mounted at `/var/lib/pmbs/snapshots` (`zstd:6`) — Deduplicated PMBS backup store.
 
 ---

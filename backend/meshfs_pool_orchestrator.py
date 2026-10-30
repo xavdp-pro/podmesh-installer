@@ -7,16 +7,20 @@ MeshFS Replicated Pool Engine (3-Node Topology)
     Node 1: s0 (10.54.45.1)
     Node 2: xt-a0 (10.54.45.2)
     Node 3: p2 (10.54.45.3)
-- Invariant: Dual/Triple replication with SHA-256 Merkle proofs
+- Invariant: Dual/Triple replication with BLAKE3 Merkle proofs
 - WireGuard Transport: 10.54.45.0/24 (Zero open public ports - GEM-001)
 """
 
 import os
 import sys
 import json
-import hashlib
 import time
 import subprocess
+
+
+def blake3_hex(data: bytes) -> str:
+    res = subprocess.run(["b3sum", "--no-names", "-"], input=data, capture_output=True, check=True)
+    return res.stdout.decode("ascii").strip()
 
 NODES = [
     {"id": "node-1", "host": "10.54.45.1", "name": "s0"},
@@ -50,14 +54,14 @@ def initialize_pool():
     for node in NODES:
         host = node["host"]
         print(f"[*] Configuration de {node['name']} ({host})...")
-        ok, out, err = run_ssh(host, "mkdir -p /var/lib/meshfs-pool/{cas_chunks,volumes,meta}")
+        ok, out, err = run_ssh(host, "mkdir -p /var/lib/meshfs/{chunks,volumes,meta}")
         if not ok:
             print(f"[!] Erreur sur {host}: {err}")
             return False
         
         # Injection des métadonnées du pool
         meta_json = json.dumps(POOL_META, indent=2)
-        write_cmd = f"cat << 'EOF' > /var/lib/meshfs-pool/meta/pool.json\n{meta_json}\nEOF"
+        write_cmd = f"cat << 'EOF' > /var/lib/meshfs/meta/pool.json\n{meta_json}\nEOF"
         ok, _, err = run_ssh(host, write_cmd)
         if not ok:
             print(f"[!] Impossible d'écrire les métadonnées sur {host}: {err}")
@@ -79,19 +83,17 @@ def write_replicated_file(local_file_path, meshfs_target_name):
     file_size = os.path.getsize(local_file_path)
     print(f"\n[*] Écriture répliquée de '{meshfs_target_name}' ({file_size} octets)...")
 
-    # Calcul SHA-256 complet
-    sha256 = hashlib.sha256()
+    # Calcul BLAKE3 complet sur disque
     with open(local_file_path, "rb") as f:
-        while chunk := f.read(4 * 1024 * 1024):
-            sha256.update(chunk)
-    file_hash = sha256.hexdigest()
-    print(f"    Merkle Root: sha256:{file_hash}")
+        file_hash = blake3_hex(f.read())
+    print(f"    Merkle Root: blake3:{file_hash}")
 
-    # Découpage et réplication vers les 3 nœuds
+    # Découpage et réplication vers les 3 nœuds dans `/var/lib/meshfs/chunks/<prefix>/<blake3>`
     chunk_index = 0
     with open(local_file_path, "rb") as f:
         while chunk_data := f.read(4 * 1024 * 1024):
-            c_hash = hashlib.sha256(chunk_data).hexdigest()
+            c_hash = blake3_hex(chunk_data)
+            prefix = c_hash[:2]
             tmp_chunk_path = f"/tmp/{c_hash}.chunk"
             with open(tmp_chunk_path, "wb") as cf:
                 cf.write(chunk_data)
@@ -99,7 +101,8 @@ def write_replicated_file(local_file_path, meshfs_target_name):
             # Envoi vers les 3 nœuds
             for node in NODES:
                 host = node["host"]
-                target_dest = f"/var/lib/meshfs-pool/cas_chunks/{c_hash}.chunk"
+                run_ssh(host, f"mkdir -p /var/lib/meshfs/chunks/{prefix}")
+                target_dest = f"/var/lib/meshfs/chunks/{prefix}/{c_hash}"
                 # SCP vers le nœud
                 cp_res = subprocess.run([
                     "scp", "-o", "StrictHostKeyChecking=no",
