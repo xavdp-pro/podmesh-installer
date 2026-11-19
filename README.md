@@ -79,3 +79,7 @@ python3 qemu-spice-test/qemu_spice_harness.py launch
 - **Canonical Governance**: See [`INTENT.md`](INTENT.md), [`LAW.md`](LAW.md), [`LINEAGE.md`](LINEAGE.md), and [`AGENTS.md`](AGENTS.md).
 - **Private Qualification Lab**: `xavdp-pro/podmesh-installer-lab`
 - **License**: Apache-2.0 (see [`LICENSE`](LICENSE) and [`DEDICATION.md`](DEDICATION.md)).
+
+## Work with Xavier de Poorter
+
+I design and build infrastructure, custom applications and SaaS products. If you’re starting a project or need help with an existing system, email me directly at [xavier@xavdp.pro](mailto:xavier@xavdp.pro). A few lines about what you want to build or improve are enough. [Explore my work](https://xavdp.pro/).
