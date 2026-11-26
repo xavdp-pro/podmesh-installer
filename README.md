@@ -78,7 +78,7 @@ python3 qemu-spice-test/qemu_spice_harness.py launch
 
 - **Canonical Governance**: See [`INTENT.md`](INTENT.md), [`LAW.md`](LAW.md), [`LINEAGE.md`](LINEAGE.md), and [`AGENTS.md`](AGENTS.md).
 - **Private Qualification Lab**: `xavdp-pro/podmesh-installer-lab`
-- **License**: Apache-2.0 (see [`LICENSE`](LICENSE) and [`DEDICATION.md`](DEDICATION.md)).
+- **License**: GNU Affero General Public License v3.0 or later (`AGPL-3.0-or-later`) (see [`LICENSE`](LICENSE) and [`DEDICATION.md`](DEDICATION.md)).
 
 ## Work with Xavier de Poorter
 
